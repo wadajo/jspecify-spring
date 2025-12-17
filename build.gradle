@@ -1,11 +1,11 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '4.0.0'
+    id 'org.springframework.boot' version '4.1.0'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'org.wadajo'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 description = 'jspecify-spring'
 
 java {
@@ -26,4 +26,16 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+// esto evita el warning de que hay un agente inline de Mockito, explicitándolo a la JVM
+tasks.withType(Test).tap {
+    configureEach {
+        def mockitoAgent = configurations.testRuntimeClasspath.find {
+            it.name.contains('mockito-core')
+        }
+        if (mockitoAgent) {
+            jvmArgs "-javaagent:${mockitoAgent.absolutePath}"
+        }
+    }
 }
