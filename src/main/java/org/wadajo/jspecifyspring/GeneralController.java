@@ -2,6 +2,8 @@ package org.wadajo.jspecifyspring;
 
 
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ public class GeneralController {
 
     private JsonMapper jsonMapper;
 
+    private final Logger logger = LoggerFactory.getLogger(GeneralController.class);
+
     @PostConstruct
     public void init() {
         restClient = RestClient.builder()
@@ -35,6 +39,7 @@ public class GeneralController {
 
         var dataRawField = jsonMapper.readTree(rawResponse).get("data").get(0);
         var obraRandom = jsonMapper.readValue(dataRawField.toString(), Obra.class);
+        logger.info("Descripción obra: {}", obraRandom.description().toLowerCase());
         return ResponseEntity.ok(obraRandom);
     }
 
