@@ -17,8 +17,10 @@ public class GeneralController {
     @Value("${artworks.base-url}")
     private String endpointUrl;
 
+    @SuppressWarnings("NullAway.Init")
     private RestClient restClient;
 
+    @SuppressWarnings("NullAway.Init")
     private JsonMapper jsonMapper;
 
     private final Logger logger = LoggerFactory.getLogger(GeneralController.class);
