@@ -56,9 +56,8 @@ class AcceptanceCriteriaIT {
             .expectBody(Obra.class)
             .consumeWith(
                 response -> {
-                    assertThat(response.getResponseBody())
-                        // el compilador nos advierte, con Spring 7, que el responseBody puede ser null
-                        .extracting(Obra::title)
+                    var obra = response.getResponseBody();
+                    assertThat(obra.title())
                         .isEqualTo("Villa Pamphili outside Porta S. Pancrazio, from Views of Rome");
                 }
             );
