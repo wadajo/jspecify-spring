@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '4.1.0'
     id 'io.spring.dependency-management' version '1.1.7'
+    id('net.ltgt.errorprone') version '5.1.0'
 }
 
 group = 'org.wadajo'
@@ -22,6 +23,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testImplementation 'org.wiremock.integrations:wiremock-spring-boot:4.2.1'
+    errorprone 'com.uber.nullaway:nullaway:0.13.3'
+    errorprone 'com.google.errorprone:error_prone_core:2.49.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
@@ -38,5 +41,14 @@ tasks.withType(Test).tap {
         if (mockitoAgent) {
             jvmArgs "-javaagent:${mockitoAgent.absolutePath}"
         }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.errorprone {
+        disableAllChecks = true
+        option("NullAway:OnlyNullMarked", "true")
+        option("NullAway:JSpecifyMode", "true")
+        error("NullAway")
     }
 }
