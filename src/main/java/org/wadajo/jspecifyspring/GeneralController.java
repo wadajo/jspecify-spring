@@ -41,7 +41,9 @@ public class GeneralController {
 
         var dataRawField = jsonMapper.readTree(rawResponse).get("data").get(0);
         var obraRandom = jsonMapper.readValue(dataRawField.toString(), Obra.class);
-        logger.info("Descripción obra: {}", obraRandom.description().toLowerCase());
+        if (obraRandom.description() != null) {
+            logger.info("Descripción obra: {}", obraRandom.description().toLowerCase());
+        }
         return ResponseEntity.ok(obraRandom);
     }
 
