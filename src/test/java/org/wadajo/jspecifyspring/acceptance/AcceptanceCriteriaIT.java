@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.client.RestTestClient;
+import org.springframework.util.Assert;
 import org.wadajo.jspecifyspring.Obra;
 import org.wiremock.spring.ConfigureWireMock;
 import org.wiremock.spring.EnableWireMock;
@@ -57,6 +58,7 @@ class AcceptanceCriteriaIT {
             .consumeWith(
                 response -> {
                     var obra = response.getResponseBody();
+                    Assert.state(obra != null, "La obra en el test no puede ser nula");
                     assertThat(obra.title())
                         .isEqualTo("Villa Pamphili outside Porta S. Pancrazio, from Views of Rome");
                 }
