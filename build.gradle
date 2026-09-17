@@ -1,9 +1,9 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '4.1.0'
+    id 'org.springframework.boot' version '4.2.0-M1'
     id 'io.spring.dependency-management' version '1.1.7'
-    id('net.ltgt.errorprone') version '5.1.0'
-    id("net.ltgt.nullaway") version "3.1.0"
+    id('net.ltgt.errorprone') version '5.1.1'
+    id("net.ltgt.nullaway") version "3.2.0"
 }
 
 group = 'org.wadajo'
@@ -24,7 +24,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testImplementation 'org.wiremock.integrations:wiremock-spring-boot:4.2.2'
-    errorprone 'com.uber.nullaway:nullaway:0.13.8'
+    errorprone 'com.uber.nullaway:nullaway:0.14.1'
     errorprone 'com.google.errorprone:error_prone_core:2.50.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
